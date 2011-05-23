@@ -12,6 +12,7 @@ function todo_save()
         # new todo
         $todo = ORM::for_table('todo')->create();    
         $todo->added = date('c');
+        $value = "# " . $value; // Automatically make it a header
     }
     else
     {

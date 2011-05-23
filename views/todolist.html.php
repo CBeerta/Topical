@@ -4,9 +4,9 @@
 
     <li style="padding-bottom: 20px;">
         <p>
-        <form method="POST" action="<?php echo url_for(); ?>">
+        <form method="POST" action="<?php echo url_for('/' . $day); ?>">
             <input type="hidden" name="function" value="todo_save">
-            <input type="text" name="value" placeholder="Create new TODO" size="40">
+            <input type="text" name="value" placeholder="Create new Task" size="40">
             <input type="submit" value="Save">
         </form>
         </p>

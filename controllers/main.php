@@ -1,16 +1,39 @@
 <?php
 
-function main_index()
+function main_index( $day )
 {
-    set ('title', 'Today');
+    $day = $day ? $day : date('Y-m-d');
     
     set('yesterday', 'Yesterday');
     set('tomorrow', 'Tomorrow');
+
+    set ('title', 'Today');
+    set ('day', $day);
     
-    set('hours', array_fill(option('daystart_hour'), option('dayend_hour'), 1));
+    set('hours', range(option('daystart_hour'), option('dayend_hour'), 1));
     
-    set('todo', ORM::for_table('todo')->where_raw("`completed` IS NULL")->find_many());
+    $todo = ORM::for_table('todo')
+        ->where_raw("`completed` IS NULL")
+        ->find_many();
+    set('todo', $todo);
+    
+    $completed = ORM::for_table('todo')
+        ->select_expr("STRFTIME('%H', `completed`, 'localtime')", 'hour')
+        ->select('*')
+        ->where_raw("DATE(`completed`) = ?", array($day))
+        ->find_many();
+
+    $indexed_completed = array();
+    foreach ($completed as $item)
+    {
+        $indexed_completed[$item->hour][] = (object) array(
+            'id' => $item->id,
+            'content' => $item->content,
+            'hour' => $item->hour,
+            );
+    }
         
+    set('completed', $indexed_completed);
     
 
     set('todolist', partial('todolist.html.php'));
@@ -21,8 +44,10 @@ function main_index()
 
 
 
-function main_post()
+function main_post( $day )
 {
+    $day = $day ? $day : '';
+
     $valid_functions = array('todo_save');
     
     if ( isset($_POST['function']) && in_array($_POST['function'], $valid_functions) )
@@ -32,5 +57,5 @@ function main_post()
         $_POST['function']();
     }
 
-    return main_index();
+    return redirect('/' . $day);
 }

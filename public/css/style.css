@@ -179,8 +179,25 @@ body {
   color: #252519;
 }
 
+body,html,#container,#main,table {
+    /* gee, that was hard */
+    height: 100%;
+}
+
 #main {
     position: relative;
+}
+
+a, a:active, a:visited {
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+textarea {
+    border: 1px solid #eee;
 }
 
 footer {
@@ -199,7 +216,7 @@ table td {
 }
 
 td.calendar {
-    padding: 10px 5px 1px 50px;
+    padding: 50px 10px 1px 10px;
     max-width: 500px;
     min-width: 500px;
     min-height: 5px;
@@ -208,10 +225,9 @@ td.calendar {
 }
 
 td.todolist {
-    padding: 10px 25px 5px 10px;
-    /*background: #f5f5ff;*/
-    background: #efe6d5;
-    border-left: 1px solid #ba6040;
+    padding: 50px 25px 5px 10px;
+    background: #f5f5ff;
+    border-left: 1px solid #e5e5ee;
     width: 100%;
 }
 
@@ -221,13 +237,8 @@ h1 {
     text-shadow: 2px 2px 2px rgba(200, 200, 200, 0.5);
 }
 
-#hour {
-    line-height: 30px;
-    border-bottom: 1px dotted #a6986f;
-    font-weight: bold;
-}
 
-/* ################################# TODO ##################################### */
+/* ################################# Todo ##################################### */
 
 .todo {
     margin-bottom: 10px;
@@ -243,22 +254,42 @@ h1 {
     right: 28px;
 }
 
-/*
-#todo:hover {
-    background-color: #aaa;
-}
-*/
+/* ################################# Calendar ##################################### */
 
-li {
-    list-style: none;
+h1#tomorrow {
+    float: right;
+    position: relative;
+    right: 0px;
 }
 
-textarea {
-    border: 1px solid #eee;
+.calendar_entry {
+    -webkit-border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #444;
+}
+.completed_todo {
+    /* background-color: #eee; */
+}
+.calendar_hour {
+    border-top: 1px dotted #a6986f;
+    padding-top: 10px;
+}
+.calendar_hour big {
+    font-size: 197%;
+    font-weight: bold;
+}
+.calendar_hour small{
+    position: relative;
+    top: -10px;
+    font-size: 93%;
+    font-weight: normal;
 }
 
 
-
+em {text-decoration: underline; }
 
 /**
  * Non-semantic helper classes: please define your styles before this section.

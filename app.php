@@ -12,8 +12,8 @@ require_once __DIR__.'/lib/markdown.php';
 function configure() 
 {
     ORM::configure('sqlite:'.__DIR__.'/data/planner.db');
-    option('daystart_hour', 9);
-    option('dayend_hour', 18);
+    option('daystart_hour', 6);
+    option('dayend_hour', 20);
 }
 
 /*
@@ -38,8 +38,8 @@ function before()
 **/ 
 layout('base.html.php');
 
-dispatch_get('/', 'main_index');
-dispatch_post('/', 'main_post');
+dispatch_get('/:day', 'main_index');
+dispatch_post('/:day', 'main_post');
 
 ### Todo Stuff
 dispatch_post('/todo_save', 'todo_save');
