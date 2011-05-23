@@ -2,36 +2,51 @@
 
 function todo_save()
 {
-    WebServer::log(print_r($_POST,true));
-    
-    if ( !isset($_POST['value']) ) return;
+    $id = isset($_POST['id']) ? $_POST['id'] : false;
+    $value = isset($_POST['value']) ? $_POST['value'] : false;
 
-    if (!isset($_POST['id']) || empty($_POST['id']))
+    if ( ! $value ) return;
+
+    if ( ! $id )
     {
         # new todo
+        $todo = ORM::for_table('todo')->create();    
+        $todo->added = date('c');
     }
     else
     {
         # edit existing
+        $todo = ORM::for_table('todo')->find_one($id);
     }
-    
-    
-    return partial($_POST['value']);
+
+    $todo->updated = date('c');
+    $todo->content = $value;
+
+    $todo->save();
+
+    return partial(Markdown($value));
 }
 
 function todo_load()
 {
-    if (!isset($_POST['id']) || empty($_POST['id']))
-    {
-        return;
-    }
+    $id = isset($_POST['id']) ? $_POST['id'] : false;
     
-    return json("blahfasel");
+    if ( ! $id ) return json("Does not Exist");
+    
+    $todo = ORM::for_table('todo')->find_one($id);
+    
+    return partial($todo->content);
 }
 
 function todo_complete()
 {
+    $id = params('id') ? params('id') : false;
     
+    if ( ! $id ) return("failed");
+    
+    $todo = ORM::for_table('todo')->find_one($id);
+    $todo->completed = date('c');
+    $todo->save();
 
     return json("ok");
 }

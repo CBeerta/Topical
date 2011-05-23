@@ -1,11 +1,17 @@
 <?php
 
+/**
+* Include our essentials
+*
+**/
 require_once __DIR__.'/lib/limonade/lib/limonade.php';
+require_once __DIR__.'/lib/idiorm/idiorm.php';
 require_once __DIR__.'/lib/helpers.php';
 require_once __DIR__.'/lib/markdown.php';
 
 function configure() 
 {
+    ORM::configure('sqlite:'.__DIR__.'/data/planner.db');
     option('daystart_hour', 9);
     option('dayend_hour', 18);
 }
@@ -22,6 +28,14 @@ function not_found($errno, $errstr, $errfile=null, $errline=null)
 }
 */
 
+function before()
+{
+}
+
+/**
+* Start Routing
+*
+**/ 
 layout('base.html.php');
 
 dispatch_get('/', 'main_index');

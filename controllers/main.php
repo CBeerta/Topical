@@ -4,13 +4,13 @@ function main_index()
 {
     set ('title', 'Today');
     
+    set('yesterday', 'Yesterday');
+    set('tomorrow', 'Tomorrow');
+    
     set('hours', array_fill(option('daystart_hour'), option('dayend_hour'), 1));
     
-    set('todo', array(
-            'todo_1' => 'some test todo',
-            'todo_2' => 'another one',
-            'todo_3' => 'aaaand yet another one',
-        ));
+    set('todo', ORM::for_table('todo')->where_raw("`completed` IS NULL")->find_many());
+        
     
 
     set('todolist', partial('todolist.html.php'));
