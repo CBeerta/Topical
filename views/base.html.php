@@ -25,6 +25,7 @@
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/css/style.css?v=2">
   <link rel="stylesheet" href="/css/awesome-buttons.css">
+  <link rel="stylesheet" href="/css/pepper-grinder/jquery-ui-1.8.13.custom.css">
 
   <!-- Uncomment if you are specifically targeting less enabled mobile browsers
   <link rel="stylesheet" media="handheld" href="css/handheld.css?v=2">  -->
@@ -44,7 +45,7 @@
         <?php echo $content; ?>
     </div>
     <footer>
-        &copy; 2011 - Today Claus Beerta <a mailto="claus@beerta.de">claus@beerta.de</a>
+        &copy; 2011 - Today Claus Beerta &lt;<a href="mailto:claus@beerta.de">claus@beerta.de</a>&gt;
     </footer>
   </div> <!--! end of #container -->
 
@@ -52,9 +53,12 @@
   <!-- JavaScript at the bottom for fast page loading -->
 
   <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.js"></script>
   <script>window.jQuery || document.write("<script src='js/libs/jquery-1.5.1.min.js'>\x3C/script>")</script>
+  <script src="js/jquery-ui-1.8.13.custom.min.js"></script>
   <script src="js/jquery.jeditable.js"></script>
+  <script src="js/jquery.jeditable.autogrow.js"></script>
+  <script src="js/jquery.autogrow.js"></script>
 
   <!-- scripts concatenated and minified via ant build script-->
   <script src="js/plugins.js"></script>

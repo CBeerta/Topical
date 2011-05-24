@@ -1,8 +1,12 @@
 
 
-<div>
-    <h1 id="tomorrow"><a href="#"><?php echo $tomorrow; ?></a> &gt;</h1>
-    <h1 id="yesterday">&lt; <a href="#"><?php echo $yesterday; ?></a></h1>
+<div class="calendar_header">
+    <h1>
+        <span id="yesterday"><a href="<?php echo url_for($yesterday); ?>">&lt;&lt;</a></span>
+        <span id="today"><a href="<?php echo url_for(); ?>"> Today </a></span>
+        <span id="tomorrow"><a href="<?php echo url_for($tomorrow); ?>">&gt;&gt;</a></span>
+        <span id="date"><?php echo $date; ?></span>
+    </h1>
 </div>
 
 <?php foreach ($hours as $hour): ?>
@@ -11,7 +15,7 @@
 
         <div class="calendar_hour"><big><?php printf("%02d", $hour); ?></big><small>00</small></div>
 
-    <?php if ( in_array($hour, array_keys($completed)) ): ?>
+        <?php if ( in_array($hour, array_keys($completed)) ): ?>
 
         <!-- FIXME: FUCK this is ugly -->
             <?php foreach ($completed[$hour] as $item): ?>
@@ -22,8 +26,7 @@
             
             <?php endforeach; ?>
 
-    <?php endif; ?>
-
+        <?php endif; ?>
         
     </hour>
 

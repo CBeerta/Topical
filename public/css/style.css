@@ -192,20 +192,21 @@ a, a:active, a:visited {
     text-decoration: none;
 }
 
-li {
+li.todo {
     list-style: none;
 }
 
-textarea {
-    border: 1px solid #eee;
+textarea, input {
+    padding: 4px;
+    border: 1px solid #aaa;
 }
 
 footer {
-    display: none;
+    /*display: none;*/
     position: fixed;
     font-size: 77%;
     bottom: 20px;
-    right: 5px;
+    right: 20px;
     text-align: center;
     color: #666;
 }
@@ -243,23 +244,35 @@ h1 {
 .todo {
     margin-bottom: 10px;
     margin-right: 20px;
-    border-bottom: 1px dotted #666;
+    /* border-bottom: 1px dotted #666; */
 }
 .todo_done {
     position: absolute;
     right: 10px;
 }
 .todo_move {
-    position: absolute;
-    right: 28px;
+    float:left;
+    position: relative;
+    padding-right: 10px;
 }
 
 /* ################################# Calendar ##################################### */
 
-h1#tomorrow {
+.calendar_header #tomorrow {
+}
+.calendar_header #yesterday {
+}
+.calendar_header #today {
+}
+.calendar_header #date{
     float: right;
     position: relative;
-    right: 0px;
+    padding-bottom: 10px;
+}
+.calendar_header {
+    text-align: left;
+    clear: both;
+    padding-bottom: 10px;
 }
 
 .calendar_entry {
@@ -274,8 +287,9 @@ h1#tomorrow {
     /* background-color: #eee; */
 }
 .calendar_hour {
-    border-top: 1px dotted #a6986f;
+    /* border-top: 1px dotted #a6986f; */
     padding-top: 10px;
+    min-height: 40px;
 }
 .calendar_hour big {
     font-size: 197%;
