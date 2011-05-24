@@ -6,8 +6,8 @@
         <p>
         <form method="POST" action="<?php echo url_for('/' . $day); ?>">
             <input type="hidden" name="function" value="todo_save">
-            <input type="text" name="value" placeholder="Create new Task" size="40">
-            <input type="submit" value="Save" class="awesome small">
+            <input type="text" name="value" placeholder="Create new Task" required size="40">
+            <input type="submit" value="Add Task" class="awesome">
         </form>
         </p>
     </li>

@@ -12,8 +12,8 @@ require_once __DIR__.'/lib/markdown.php';
 function configure() 
 {
     ORM::configure('sqlite:'.__DIR__.'/data/planner.db');
-    option('daystart_hour', 6);
-    option('dayend_hour', 20);
+    option('daystart_hour', 7);
+    option('dayend_hour', 22);
     
     option('date_format', 'D, j M Y');
 }

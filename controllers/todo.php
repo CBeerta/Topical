@@ -79,7 +79,6 @@ function todo_sort()
 **/
 function todo_load()
 {
-    d($_POST);
     $id = isset($_POST['id']) ? $_POST['id'] : false;
     
     if ( ! $id ) return json("Does not Exist");
