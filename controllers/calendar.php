@@ -40,7 +40,7 @@ function _calendar_index ( $day )
     set('yesterday', $yesterday->format('Y-m-d'));
     set('tomorrow', $tomorrow->format('Y-m-d'));
     
-    set('hours', range(option('daystart_hour'), option('dayend_hour'), 1));
+    set('hours', range(option('day_start_hour'), option('day_end_hour'), 1));
 
     return partial('calendar.html.php');
 }

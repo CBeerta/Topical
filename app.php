@@ -11,16 +11,30 @@ require_once __DIR__.'/lib/markdown.php';
 
 function configure() 
 {
-    ORM::configure('sqlite:'.__DIR__.'/data/planner.db');
-    option('daystart_hour', 7);
-    option('dayend_hour', 22);
+    /**
+    * Options with defaults, overridable in config.ini
+    **/
+    $options = array (
+        'dbfile' => './data/planner.db',
+        'day_start_hour' => 7,
+        'day_end_hour' => 20,
+        'date_format' => 'D, j M Y',
+        );
+
+    /**
+    * Load config file and override default options
+    **/    
+    $config = parse_ini_file(__DIR__."/config.ini");
+    foreach ( $options as $k => $v )
+    {
+        $v = isset($config[$k]) ? $config[$k] : $options[$k];
+        option ($k, $v);
+    }
     
-    option('date_format', 'D, j M Y');
+    ORM::configure('sqlite:' . option('dbfile'));
 }
 
-function before()
-{
-}
+function before() { }
 
 /**
 * Start Routing
