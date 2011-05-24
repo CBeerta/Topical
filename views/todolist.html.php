@@ -21,7 +21,7 @@
     
         <img class="todo_move" src="img/gtk-dnd.png" width="24" height="24">
     
-        <img class="todo_done" src="img/gtk-apply.png" width="16" height="16">
+        <img class="todo_done"  id="<?php echo $v->id; ?>" src="img/gtk-apply.png" width="16" height="16">
         
         <div class="todo_edit" id="<?php echo $v->id; ?>"><?php echo Markdown($v->content); ?></div>
         

@@ -18,23 +18,6 @@ function _calendar_index ( $day )
         return;
     }
 
-    $completed = ORM::for_table('todo')
-        ->select_expr("STRFTIME('%H', `completed`, 'localtime')", 'hour')
-        ->select('*')
-        ->where_raw("DATE(`completed`) = ?", array($day))
-        ->find_many();
-
-    $indexed_completed = array();
-    foreach ($completed as $item)
-    {
-        $indexed_completed[$item->hour][] = (object) array(
-            'id' => $item->id,
-            'content' => $item->content,
-            'hour' => $item->hour,
-            );
-    }
-        
-    set('completed', $indexed_completed);
 
     set('date', $date->format(option('date_format')));
     set('yesterday', $yesterday->format('Y-m-d'));
@@ -43,4 +26,33 @@ function _calendar_index ( $day )
     set('hours', range(option('day_start_hour'), option('day_end_hour'), 1));
 
     return partial('calendar.html.php');
+}
+
+function calendar_hours ( $day ) 
+{
+    try
+    {
+        $date = new DateTime($day);
+    }
+    catch (Exception $e)
+    {
+        return json("FAIL");
+    }
+    $completed = ORM::for_table('todo')
+        ->select_expr("STRFTIME('%H', `completed`, 'localtime')", 'hour')
+        ->select('*')
+        ->where_raw("DATE(`completed`) = ?", $date->format('Y-m-d'))
+        ->find_many();
+
+    $indexed_completed = array();
+    foreach ($completed as $item)
+    {
+        $indexed_completed[$item->hour][] = array(
+            'id' => $item->id,
+            'content' => partial('task_snippet.html.php', array('content' => $item->content)),
+            'hour' => $item->hour,
+            );
+    }
+        
+    return json($indexed_completed);
 }

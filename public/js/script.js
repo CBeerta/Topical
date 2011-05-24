@@ -31,6 +31,9 @@ $(document).ready(function()
     });
     
 	$( "#sortable" ).disableSelection();
+
+    /* Load Calendar contents */
+    load_calendar('today');
     
 });
 
@@ -38,6 +41,29 @@ $('.todo_done').click(function()
 {
     var id = $(this).attr('id');
     $.get("/todo_complete/" + id);
-    $("#" + id).fadeOut("slow");
+    $("#todo_order_" + id).fadeOut("slow");
+    load_calendar('today');
 });
 
+function load_calendar( day ) 
+{
+    $.ajax({
+        url: '/calendar_hours/' + day,
+        dataType: 'json',
+        success: function(data) {
+            /* Remove any That might be there */
+            $(".completed_todo").remove();
+            
+            /* Then reset them all again. Browser CPU is cheap :-) */
+            for (var hour in data)
+            {
+                for (var i in data[hour])
+                {
+                    var task = data[hour][i];
+                    $(".calendar_hour#" + task.hour).append(task.content);
+                }
+            }
+        
+        }
+    });
+}

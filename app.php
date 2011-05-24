@@ -48,6 +48,9 @@ dispatch_post('/todo_sort', 'todo_sort');
 dispatch_post('/todo_load', 'todo_load');
 dispatch_get('/todo_complete/:id', 'todo_complete');
 
+### Calendar Stuff
+dispatch_get('/calendar_hours/:day', 'calendar_hours');
+
 
 ### Index Page
 dispatch_get('/:day', 'main_index');
