@@ -1,5 +1,5 @@
-/* Author: 
-
+/* Author: Claus Beerta
+    
 */
 
 $(document).ready(function() 
@@ -16,7 +16,7 @@ $(document).ready(function()
 	$( "#sortable" ).disableSelection();
 	
     $('#todo_save').submit(function() {
-        var task     = $('#todo_task').attr('value');  
+        var task = $('#todo_task').attr('value');  
         $.ajax({  
             type: "POST",
             url: "/todo_save",
@@ -40,11 +40,11 @@ $(document).ready(function()
 
 $('.todo_done').click(function() 
 {
-    var id = $(this).attr('id');
-    $.get("/todo_complete/" + id);
-    //$("#todo_order_" + id).slideUp("fast");
-    $("#todo_order_" + id).remove();
-    load_calendar( document.today  );
+    var id = $(this).parent().attr('id');
+    $.get("/todo_complete/" + id, function(data) {
+        $("#todo_order_" + data).remove();
+        load_calendar( document.today  );
+    });
 });
 
 function activate_editable()
@@ -99,3 +99,7 @@ function load_calendar( day )
         }
     });
 }
+
+
+
+

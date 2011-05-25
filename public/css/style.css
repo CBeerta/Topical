@@ -259,6 +259,11 @@ h1 {
 .todo_edit:hover {
     background-color: #FFFEA8;
 }
+.todo_age {
+    position: relative;
+    float: right;
+    font-size: 85%%;
+}
 
 /* ################################# Calendar ##################################### */
 

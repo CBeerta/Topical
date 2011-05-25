@@ -65,9 +65,11 @@ function calendar_hours ( $day )
     $indexed_completed = array();
     foreach ($completed as $item)
     {
+        $item->age = _todo_age($item);
+        $item->added = new DateTime($item->added);
         $indexed_completed[$item->hour][] = array(
             'id' => $item->id,
-            'content' => partial('snippets/calendar.html.php', array('content' => $item->content)),
+            'content' => partial('snippets/calendar.html.php', array('item' => $item)),
             'hour' => $item->hour,
             );
     }

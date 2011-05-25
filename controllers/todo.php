@@ -16,12 +16,28 @@ function _todo_index( $day )
     $tasklist = '';
     foreach ($todo as $task)
     {
+        $task->age = _todo_age($task);
         set('task', $task);
         $tasklist .= partial('snippets/todo.html.php');    
     }
     
     return partial("todolist.html.php", array('tasklist' => $tasklist));
 }
+
+
+/**
+* Calculate the "age" of a task in days
+*
+**/
+function _todo_age( $task )
+{
+    $created = new DateTime($task->added);
+    $interval = $created->diff(new DateTime());
+    if ($interval->days == 0) return false;
+    else if ($interval->days == 1) return "One Day";
+    else return $interval->days . "Days";
+}
+
 
 /**
 * Save a new Task or Update an Existing one
@@ -85,14 +101,13 @@ function todo_sort()
 **/
 function todo_load( $formatted = false )
 {
-    #d($_POST);
     $id = isset($_POST['id']) ? $_POST['id'] : false;
     
     if ( ! $id ) return json("Does not Exist");
     
     $todo = ORM::for_table('todo')->find_one($id);
-
-    #d($todo);
+    $todo->age = _todo_age($todo);
+    
     if ( $formatted )
     {    
         return partial('snippets/todo.html.php', array('task' => $todo));
@@ -111,14 +126,15 @@ function todo_load( $formatted = false )
 function todo_complete()
 {
     $id = params('id') ? params('id') : false;
+    $id = preg_replace('#^todo_order_#', '', $id);
     
-    if ( ! $id ) return("failed");
+    if ( ! is_numeric($id) ) return json("FAIL");
     
     $todo = ORM::for_table('todo')->find_one($id);
     $todo->completed = date('c');
     $todo->save();
 
-    return json("ok");
+    return partial($id);
 }
 
 
