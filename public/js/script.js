@@ -4,6 +4,51 @@
 
 $(document).ready(function() 
 {
+	$( ".todo#sortable" ).sortable(
+	{ 
+	    handle: 'img.todo_move', 
+	    opacity: 0.6,
+        update : function () {
+            $.post("/todo_sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
+        }
+    });
+    
+	$( "#sortable" ).disableSelection();
+	
+    $('#todo_save').submit(function() {
+        var task     = $('#todo_task').attr('value');  
+        $.ajax({  
+            type: "POST",
+            url: "/todo_save",
+            data: "value=" + task,
+            success: function(id){
+                $('#todo_task').attr('value', '');
+                $.post('/todo_load/formatted', { 'id' : id } , function ( data ) {
+                    $(data).insertAfter("#todolist_first");
+                    activate_editable();
+                });
+            }
+        });          
+        return false;
+    });
+
+    /* Load Calendar contents */
+    load_calendar( document.today );
+
+    activate_editable();
+});
+
+$('.todo_done').click(function() 
+{
+    var id = $(this).attr('id');
+    $.get("/todo_complete/" + id);
+    //$("#todo_order_" + id).slideUp("fast");
+    $("#todo_order_" + id).remove();
+    load_calendar( document.today  );
+});
+
+function activate_editable()
+{
     $('.todo_edit').editable('/todo_save', 
     {
         loadurl     : '/todo_load',
@@ -20,31 +65,7 @@ $(document).ready(function()
            minHeight  : 100
         }
     });
-    
-	$( ".todo#sortable" ).sortable(
-	{ 
-	    handle: 'img.todo_move', 
-	    opacity: 0.6,
-        update : function () {
-            $.post("/todo_sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
-        }
-    });
-    
-	$( "#sortable" ).disableSelection();
-
-    /* Load Calendar contents */
-    load_calendar( document.today );
-    
-});
-
-$('.todo_done').click(function() 
-{
-    var id = $(this).attr('id');
-    $.get("/todo_complete/" + id);
-    //$("#todo_order_" + id).slideUp("fast");
-    $("#todo_order_" + id).remove();
-    load_calendar( document.today  );
-});
+}
 
 function load_calendar( day ) 
 {

@@ -12,9 +12,15 @@ function _todo_index( $day )
         ->where_raw("`completed` IS NULL")
         ->order_by_asc('order')
         ->find_many();
-    set('todo', $todo);
     
-    return partial('todolist.html.php');
+    $tasklist = '';
+    foreach ($todo as $task)
+    {
+        set('task', $task);
+        $tasklist .= partial('snippets/todo.html.php');    
+    }
+    
+    return partial("todolist.html.php", array('tasklist' => $tasklist));
 }
 
 /**
@@ -34,6 +40,7 @@ function todo_save()
         # new todo
         $todo = ORM::for_table('todo')->create();    
         $todo->added = date('c');
+        $todo->order = -1;
         $value = "# " . $value; // Automatically make it a header
     }
     else
@@ -44,10 +51,9 @@ function todo_save()
 
     $todo->updated = date('c');
     $todo->content = $value;
-
     $todo->save();
 
-    return partial(Markdown($value));
+    return partial($id ? Markdown($value) : $todo->id);
 }
 
 /**
@@ -73,24 +79,33 @@ function todo_sort()
 }
 
 /**
-* Load a Task, return it as partial (AJAX)
-*
+* Load Task Content, return it as partial. Without Markdown applied for 
+* the jQuery editable
 *
 **/
-function todo_load()
+function todo_load( $formatted = false )
 {
+    #d($_POST);
     $id = isset($_POST['id']) ? $_POST['id'] : false;
     
     if ( ! $id ) return json("Does not Exist");
     
     $todo = ORM::for_table('todo')->find_one($id);
-    
-    return partial($todo->content);
+
+    #d($todo);
+    if ( $formatted )
+    {    
+        return partial('snippets/todo.html.php', array('task' => $todo));
+    }
+    else
+    {
+        return partial($todo->content);
+    }
 }
+
 
 /**
 * Set `completed` date in database for a Task (AJAX)
-*
 *
 **/
 function todo_complete()

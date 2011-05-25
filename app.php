@@ -43,18 +43,16 @@ function before() { }
 layout('base.html.php');
 
 ### Todo Stuff
-dispatch_post('/todo_save', 'todo_save');
-dispatch_post('/todo_sort', 'todo_sort');
-dispatch_post('/todo_load', 'todo_load');
-dispatch_get('/todo_complete/:id', 'todo_complete');
+dispatch_post('/todo_save', 'todo_save'); ## Save a Todo. This needs to DIAF
+dispatch_post('/todo_sort', 'todo_sort'); ## jQuery Sortable Target for resorting
+dispatch_post('/todo_load/:formatted', 'todo_load'); ## Load todo and return partial snippet
+dispatch_get('/todo_complete/:id', 'todo_complete'); ## Complete a Todo
 
 ### Calendar Stuff
 dispatch_get('/calendar_hours/:day', 'calendar_hours');
 
-
 ### Index Page
 dispatch_get('/:day', 'main_index');
-dispatch_post('/:day', 'main_post');
 
 
 run();
