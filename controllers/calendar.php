@@ -1,6 +1,6 @@
 <?php
 
-function _calendar_index ( $day )
+function _set_dates ( $day ) 
 {
     try
     {
@@ -13,16 +13,19 @@ function _calendar_index ( $day )
     }
     catch (Exception $e)
     {
-        # FIXME Some errormessage would be nice
-        redirect('/');
         return;
     }
-
-
     set('date', $date->format(option('date_format')));
+    set('today', $date->format('Y-m-d'));
     set('yesterday', $yesterday->format('Y-m-d'));
     set('tomorrow', $tomorrow->format('Y-m-d'));
     
+    return;
+}
+
+function _calendar_index ( $day )
+{
+    _set_dates($day);
     set('hours', range(option('day_start_hour'), option('day_end_hour'), 1));
 
     return partial('calendar.html.php');
@@ -38,6 +41,9 @@ function calendar_hours ( $day )
     {
         return json("FAIL");
     }
+    
+    _set_dates($day);
+    
     $completed = ORM::for_table('todo')
         ->select_expr("STRFTIME('%H', `completed`, 'localtime')", 'hour')
         ->select('*')
@@ -53,6 +59,14 @@ function calendar_hours ( $day )
             'hour' => $item->hour,
             );
     }
+    $data = array (
+        'items' => $indexed_completed, 
+        'date' => $date->format(option('date_format')),
+        'today' => set('today'),
+        'tomorrow' => set('tomorrow'),
+        'yesterday' => set('yesterday'),
+        'day' => $date->format('Y-m-d'),
+        );
         
-    return json($indexed_completed);
+    return json($data);
 }

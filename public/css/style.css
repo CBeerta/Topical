@@ -256,6 +256,10 @@ h1 {
     padding-right: 10px;
 }
 
+.todo_edit:hover {
+    background-color: #FFFEA8;
+}
+
 /* ################################# Calendar ##################################### */
 
 .calendar_header #tomorrow {
@@ -264,7 +268,7 @@ h1 {
 }
 .calendar_header #today {
 }
-.calendar_header #date{
+.calendar_header #calendar_date{
     float: right;
     position: relative;
     padding-bottom: 10px;
@@ -285,6 +289,7 @@ h1 {
 }
 .completed_todo {
     /* background-color: #eee; */
+    /*display: none;*/ /* hide per default, will be faded in with jquery */
 }
 .calendar_hour {
     /* border-top: 1px dotted #a6986f; */

@@ -33,7 +33,7 @@ $(document).ready(function()
 	$( "#sortable" ).disableSelection();
 
     /* Load Calendar contents */
-    load_calendar('today');
+    load_calendar( document.today );
     
 });
 
@@ -41,8 +41,9 @@ $('.todo_done').click(function()
 {
     var id = $(this).attr('id');
     $.get("/todo_complete/" + id);
-    $("#todo_order_" + id).fadeOut("slow");
-    load_calendar('today');
+    //$("#todo_order_" + id).slideUp("fast");
+    $("#todo_order_" + id).remove();
+    load_calendar( document.today  );
 });
 
 function load_calendar( day ) 
@@ -51,16 +52,26 @@ function load_calendar( day )
         url: '/calendar_hours/' + day,
         dataType: 'json',
         success: function(data) {
+            document.today=data['today'];
+            document.tomorrow=data['tomorrow'];
+            document.yesterday=data['yesterday'];
+        
+            //unescape(self.document.location.hash.substring(1))
+            self.document.location.hash = day;
+            
+            $("#calendar_date").text(data['date']);
+            
             /* Remove any That might be there */
             $(".completed_todo").remove();
             
             /* Then reset them all again. Browser CPU is cheap :-) */
-            for (var hour in data)
+            for (var hour in data['items'])
             {
-                for (var i in data[hour])
+                for (var i in data['items'][hour])
                 {
-                    var task = data[hour][i];
+                    var task = data['items'][hour][i];
                     $(".calendar_hour#" + task.hour).append(task.content);
+                    //$(".completed_todo").slideDown("fast");
                 }
             }
         
