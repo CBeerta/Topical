@@ -16,14 +16,18 @@ document.yesterday="<?php echo $yesterday; ?>";
     </h1>
 </div>
 
-<?php foreach ($hours as $hour): ?>
+<table class="calendar">
+<?php foreach ($hours as $k => $v): ?>
 
-    <hour>
-
-        <div id="<?php printf("%02d", $hour); ?>" class="calendar_hour"><big><?php printf("%02d", $hour); ?></big><small>00</small></div>
+    <tr style="<?php if ( ! $v->in_timeframe ) echo 'display:none;'; ?>" id="hour_<?php printf("%02d", $k); ?>">
+    
+        <td>
         
-    </hour>
+        <div id="<?php printf("%02d", $k); ?>" class="calendar_hour"><big><?php printf("%02d", $k); ?></big><small>00</small></div>
+        
+        </td>
+        
+    </tr>
 
 <?php endforeach; ?>
-
-
+</table>

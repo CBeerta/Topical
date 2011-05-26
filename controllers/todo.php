@@ -34,8 +34,8 @@ function _todo_age( $task )
     $created = new DateTime($task->added);
     $interval = $created->diff(new DateTime());
     if ($interval->days == 0) return false;
-    else if ($interval->days == 1) return "One Day";
-    else return $interval->days . "Days";
+    else if ($interval->days == 1) return "Yesterday";
+    else return $interval->days . " Days";
 }
 
 
@@ -126,7 +126,6 @@ function todo_load( $formatted = false )
 function todo_complete()
 {
     $id = params('id') ? params('id') : false;
-    $id = preg_replace('#^todo_order_#', '', $id);
     
     if ( ! is_numeric($id) ) return json("FAIL");
     

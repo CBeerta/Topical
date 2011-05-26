@@ -38,14 +38,16 @@ $(document).ready(function()
     activate_editable();
 });
 
-$('.todo_done').click(function() 
+
+/** click() function for then an item gets completed **/
+function todo_done(id) 
 {
-    var id = $(this).parent().attr('id');
+    //var id = $(this).parent().attr('id');
     $.get("/todo_complete/" + id, function(data) {
         $("#todo_order_" + data).remove();
         load_calendar( document.today  );
     });
-});
+}
 
 function activate_editable()
 {
@@ -92,6 +94,7 @@ function load_calendar( day )
                 {
                     var task = data['items'][hour][i];
                     $(".calendar_hour#" + task.hour).append(task.content);
+                    $("tr#hour_" + task.hour).css('display', 'inherit');
                     //$(".completed_todo").slideDown("fast");
                 }
             }

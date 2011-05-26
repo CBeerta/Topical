@@ -215,6 +215,11 @@ table td {
     outline: 0;
 }
 
+table.calendar {
+    height: 95%;
+    width: 100%;
+}
+
 td.calendar {
     padding: 20px 10px 1px 10px;
     max-width: 450px;
@@ -299,7 +304,7 @@ h1 {
 .calendar_hour {
     /* border-top: 1px dotted #a6986f; */
     padding-top: 10px;
-    min-height: 40px;
+    /* min-height: 40px; */
 }
 .calendar_hour big {
     font-size: 197%;

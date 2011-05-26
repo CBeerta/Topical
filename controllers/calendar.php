@@ -6,7 +6,16 @@
 **/
 function _calendar_index ( $day )
 {
-    set('hours', range(option('day_start_hour'), option('day_end_hour'), 1));
+    $hours = array();
+    $timeframe = range(option('day_start_hour'), option('day_end_hour'), 1);
+    foreach (range(0, 23, 1) as $hour)
+    {
+        $in_timeframe = in_array($hour, $timeframe) ? true : false;
+        $hours[$hour] = (object) array (
+            'in_timeframe' => $in_timeframe,
+            );
+    }
+    set('hours', $hours);
     _get_dates($day);
     return partial('calendar.html.php');
 }
