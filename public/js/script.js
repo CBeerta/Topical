@@ -63,8 +63,8 @@ function activate_editable()
         width       : 'auto',
         style       : "display: inline",
         autogrow    : {
-           lineHeight : 20,
-           minHeight  : 100
+           lineHeight : 16 /*,
+           minHeight  : 100*/
         }
     });
 }
@@ -98,7 +98,7 @@ function load_calendar( day )
                     //$(".completed_todo").slideDown("fast");
                 }
             }
-        
+            activate_editable();
         }
     });
 }

@@ -35,7 +35,7 @@ function _todo_age( $task )
     $interval = $created->diff(new DateTime());
     if ($interval->days == 0) return false;
     else if ($interval->days == 1) return "Yesterday";
-    else return $interval->days . " Days";
+    else return $interval->days . " Days Ago";
 }
 
 

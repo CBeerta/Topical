@@ -290,12 +290,21 @@ h1 {
 }
 
 .calendar_entry {
+/*
     -webkit-border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
     padding: 5px;
     margin: 5px;
     border: 1px solid #444;
+*/
+    margin-left: 10px;
+    padding: 5px;
+}
+#info {
+    text-align: right;
+    font-size: smaller;
+    line-height: 12px;
 }
 .completed_todo {
     /* background-color: #eee; */

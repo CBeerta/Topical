@@ -1,12 +1,8 @@
 <div class="calendar_entry completed_todo">
-    <?php echo Markdown($item->content); ?>
-    
-    <p>
-    Created: <?php echo $item->added->format(option('date_format')); ?>
-    </p>
-    <p>
-    <?php if ($item->age): ?>
-    Age: <?php echo $item->age; ?> 
-    <?php endif; ?>
+    <div class="todo_edit" id="<?php echo $item->id; ?>"><?php echo Markdown($item->content); ?></div>
+
+    <!-- p id="info"><?php echo $item->added->format(option('date_format')); ?></p -->
+    <p id="info">
+        Created <?php if ($item->age): ?><?php echo $item->age; ?><?php endif; ?>
     </p>
 </div>
