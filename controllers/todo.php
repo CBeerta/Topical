@@ -33,7 +33,7 @@ function _todo_age( $task )
 {
     $created = new DateTime($task->added);
     $interval = $created->diff(new DateTime());
-    if ($interval->days == 0) return false;
+    if ($interval->days == 0) return 'Today';
     else if ($interval->days == 1) return "Yesterday";
     else return $interval->days . " Days Ago";
 }
@@ -136,5 +136,20 @@ function todo_complete()
     return partial($id);
 }
 
+/**
+* Delete a Task (AJAX)
+*
+**/
+function todo_delete()
+{
+    $id = params('id') ? params('id') : false;
+    
+    if ( ! is_numeric($id) ) return json("FAIL");
+    
+    $todo = ORM::for_table('todo')->find_one($id);
+    $todo->delete();
+
+    return partial($id);
+}
 
 

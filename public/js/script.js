@@ -6,7 +6,7 @@ $(document).ready(function()
 {
 	$( ".todo#sortable" ).sortable(
 	{ 
-	    handle: 'img.todo_move', 
+	    handle: 'img#todo_move', 
 	    opacity: 0.6,
         update : function () {
             $.post("/todo_sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
@@ -20,7 +20,7 @@ $(document).ready(function()
         $.ajax({  
             type: "POST",
             url: "/todo_save",
-            data: "value=" + task,
+            data: { 'value': task },
             success: function(id){
                 $('#todo_task').attr('value', '');
                 $.post('/todo_load/formatted', { 'id' : id } , function ( data ) {
@@ -33,7 +33,15 @@ $(document).ready(function()
     });
 
     /* Load Calendar contents */
-    load_calendar( document.today );
+    var hash = unescape(self.document.location.hash.substring(1));
+    if ( hash != '' )
+    {
+        load_calendar( hash );
+    }
+    else
+    {
+        load_calendar( document.today );
+    }
 
     activate_editable();
 });
@@ -44,6 +52,14 @@ function todo_done(id)
 {
     //var id = $(this).parent().attr('id');
     $.get("/todo_complete/" + id, function(data) {
+        $("#todo_order_" + data).remove();
+        load_calendar( document.today  );
+    });
+}
+function todo_delete(id) 
+{
+    //var id = $(this).parent().attr('id');
+    $.get("/todo_delete/" + id, function(data) {
         $("#todo_order_" + data).remove();
         load_calendar( document.today  );
     });
@@ -59,7 +75,7 @@ function activate_editable()
         submit      : "Save",
         indicator   : '<img src="img/indicator.gif">',
         tooltip     : 'Click to edit...',
-        onblur      : 'ignore',
+        onblur      : 'cancel',
         width       : 'auto',
         style       : "display: inline",
         autogrow    : {
@@ -79,8 +95,7 @@ function load_calendar( day )
             document.tomorrow=data['tomorrow'];
             document.yesterday=data['yesterday'];
         
-            //unescape(self.document.location.hash.substring(1))
-            self.document.location.hash = day;
+            self.document.location.hash = document.today;
             
             $("#calendar_date").text(data['date']);
             

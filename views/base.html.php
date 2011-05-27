@@ -19,8 +19,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Place favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-  <link rel="shortcut icon" href="/favicon.ico">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="shortcut icon" href="/favicon.png">
+  <!--link rel="apple-touch-icon" href="/apple-touch-icon.png"-->
 
   <!-- CSS: implied media="all" -->
   <link rel="stylesheet" href="/css/style.css?v=2">
@@ -48,7 +48,6 @@
         &copy; 2011 - Today Claus Beerta &lt;<a href="mailto:claus@beerta.de">claus@beerta.de</a>&gt;
     </footer>
   </div> <!--! end of #container -->
-
 
   <!-- JavaScript at the bottom for fast page loading -->
 

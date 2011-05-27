@@ -9,9 +9,9 @@ document.yesterday="<?php echo $yesterday; ?>";
 
 <div class="calendar_header">
     <h1>
-        <span id="yesterday"><a href="#" onclick="load_calendar(document.yesterday);" >&lt;&lt;</a></span>
-        <span id="today"> - <a href="#" onclick="load_calendar('today');"> Today </a> - </span>
-        <span id="tomorrow"><a href="#" onclick="load_calendar(document.tomorrow);">&gt;&gt;</a></span>
+        <span id="yesterday"><a href="#" onclick="load_calendar(document.yesterday);" ><img src="img/arrow_left_12x12.png" height="12" width="12"></a></span>
+        <span id="today"> <a href="#" onclick="load_calendar('today');"> Today </a> </span>
+        <span id="tomorrow"><a href="#" onclick="load_calendar(document.tomorrow);"><img src="img/arrow_right_12x12.png" height="12" width="12"></a></span>
         <span id="calendar_date"></span>
     </h1>
 </div>

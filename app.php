@@ -47,6 +47,7 @@ dispatch_post('/todo_save', 'todo_save'); ## Save a Todo. This needs to DIAF
 dispatch_post('/todo_sort', 'todo_sort'); ## jQuery Sortable Target for resorting
 dispatch_post('/todo_load/:formatted', 'todo_load'); ## Load todo and return partial snippet
 dispatch_get('/todo_complete/:id', 'todo_complete'); ## Complete a Todo
+dispatch_get('/todo_delete/:id', 'todo_delete'); ## Delete a Todo
 
 ### Calendar Stuff
 dispatch_get('/calendar_hours/:day', 'calendar_hours');
