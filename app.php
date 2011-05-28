@@ -17,7 +17,7 @@ function configure()
     $options = array (
         'dbfile' => './data/planner.db',
         'day_start_hour' => 7,
-        'day_end_hour' => 20,
+        'day_end_hour' => 16,
         'date_format' => 'D, j M Y',
         );
 
@@ -32,6 +32,19 @@ function configure()
     }
     
     ORM::configure('sqlite:' . option('dbfile'));
+    
+    /**
+    * Create the Table should it not exist
+    **/
+    ORM::get_db()->query('
+        CREATE TABLE IF NOT EXISTS "todo" (
+            `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            `added` datetime NOT NULL,
+            `updated` datetime NOT NULL,
+            `content` longtext,
+            `completed` datetime DEFAULT NULL, 
+            `order` int default 0);
+        ');
 }
 
 function before() { }
@@ -43,17 +56,17 @@ function before() { }
 layout('base.html.php');
 
 ### Todo Stuff
-dispatch_post('/todo_save', 'todo_save'); ## Save a Todo. This needs to DIAF
-dispatch_post('/todo_sort', 'todo_sort'); ## jQuery Sortable Target for resorting
-dispatch_post('/todo_load/:formatted', 'todo_load'); ## Load todo and return partial snippet
-dispatch_get('/todo_complete/:id', 'todo_complete'); ## Complete a Todo
-dispatch_get('/todo_delete/:id', 'todo_delete'); ## Delete a Todo
+dispatch_post('/todo/save', 'Task::save'); ## Save a Todo. This needs to DIAF
+dispatch_post('/todo/sort', 'Task::sort'); ## jQuery Sortable Target for resorting
+dispatch_post('/todo/load/:formatted', 'Task::load'); ## Load todo and return partial snippet
+dispatch_get('/todo/complete/:id', 'Task::complete', array('params' => array('action' => 'complete'))); ## Complete a Todo
+dispatch_get('/todo/delete/:id', 'Task::complete', array('params' => array('action' => 'delete'))); ## Delete a Todo
 
 ### Calendar Stuff
-dispatch_get('/calendar_hours/:day', 'calendar_hours');
+dispatch_get('/calendar/hours/:day', 'Calendar::hours');
 
 ### Index Page
-dispatch_get('/:day', 'main_index');
+dispatch_get('/:day', 'Main::index');
 
 
 run();

@@ -167,24 +167,21 @@ a:hover { color: #036; }
 /**
  * Primary styles
  *
- * Author: 
- 
- * http://kuler.adobe.com/#themeID/1315065
+ * Author: Claus Beerta
+ *
+ * Palette : http://www.colourlovers.com/palette/244473/zen_persimmon
  */
 
 body {
-  font-size: 77%;
-  line-height: 22px;
-  color: #252519;
+    font-size: 12px;
+    line-height: 20px;
+    color: #252519;
+    background: #D8D8C0;
 }
 
 body,html,#container,#main,table {
     /* gee, that was hard */
     height: 100%;
-}
-
-#main {
-    position: relative;
 }
 
 a, a:active, a:visited {
@@ -198,7 +195,7 @@ textarea, input {
 }
 
 footer {
-    visibility: visible;
+    visibility: hidden;
     position: fixed;
     font-size: 77%;
     bottom: 6px;
@@ -219,18 +216,18 @@ table.calendar {
 }
 
 td.calendar {
-    padding: 20px 10px 1px 10px;
+    background-color: #fff;
+    padding: 20px 10px 0px 10px;
     max-width: 450px;
     min-width: 450px;
-    min-height: 5px;
     vertical-align: top;
     text-align: left;
 }
 
 td.todolist {
-    padding: 20px 25px 5px 5px;
-    background: #f5f5ff;
-    border-left: 1px solid #e5e5ee;
+    padding: 20px 5px 0px 5px;
+    background: #D8D8C0;
+    border-left: 1px solid #7A8370;
     width: 100%;
 }
 
@@ -246,8 +243,9 @@ h1 {
 
 li.todo {
     list-style: none;
-    margin-bottom: 10px;
-    margin-right: 20px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    background-color: #D8D8C0;
 }
 div.todo {
     float: left;
@@ -255,17 +253,13 @@ div.todo {
     padding-right: 5px;
     padding-top: 6px;
 }
-img.todo {
-    margin-right: 5px;
-}
 .todo_edit:hover {
-    background-color: #FFFEA8;
+    background-color: #F0F0D8;
 }
 .todo_age {
-    position: absolute;
-    right: 5px;
+    position: relative;
     float: right;
-    padding-right: 5px;
+    padding-left: 5px;
     font-size: 85%;
 }
 
@@ -285,19 +279,9 @@ img.todo {
 .calendar_header {
     text-align: left;
     clear: both;
-    padding-bottom: 10px;
 }
 
 .calendar_entry {
-/*
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #444;
-*/
-    margin-left: 10px;
     padding: 5px;
 }
 #info {
@@ -311,8 +295,6 @@ img.todo {
 }
 .calendar_hour {
     /* border-top: 1px dotted #a6986f; */
-    padding-top: 10px;
-    /* min-height: 40px; */
 }
 .calendar_hour big {
     font-size: 197%;
@@ -365,19 +347,22 @@ img.todo {
 
 @media all and (orientation:portrait) {
   /* Style adjustments for portrait mode goes here */
-
+    td.calendar {
+        display: none;
+    }
 }
 
 @media all and (orientation:landscape) {
   /* Style adjustments for landscape mode goes here */
-
 }
 
 /* Grade-A Mobile Browsers (Opera Mobile, Mobile Safari, Android Chrome)
    consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
 @media screen and (max-device-width: 480px) {
-
-
+    /* Lets hide the calendar if the display gets to thin */
+    td.calendar {
+        display: none;
+    }
   /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you: j.mp/textsizeadjust */
   /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
 }

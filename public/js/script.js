@@ -1,5 +1,6 @@
-/* Author: Claus Beerta
-    
+/**
+* @author: Claus Beerta
+*
 */
 
 $(document).ready(function() 
@@ -7,23 +8,27 @@ $(document).ready(function()
 	$( ".todo#sortable" ).sortable(
 	{ 
 	    handle: 'img#todo_move', 
-	    opacity: 0.6,
+	    opacity: 1.0,
+	    axis: 'y',
         update : function () {
-            $.post("/todo_sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
+            $.post("todo/sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
         }
     });
     
 	$( "#sortable" ).disableSelection();
 	
-    $('#todo_save').submit(function() {
+    $('#todo_save').submit(function() 
+    {
         var task = $('#todo_task').attr('value');  
         $.ajax({  
             type: "POST",
-            url: "/todo_save",
+            url: "todo/save",
             data: { 'value': task },
-            success: function(id){
+            success: function(id)
+            {
                 $('#todo_task').attr('value', '');
-                $.post('/todo_load/formatted', { 'id' : id } , function ( data ) {
+                $.post('todo/load/formatted', { 'id' : id } , function ( data ) 
+                {
                     $(data).insertAfter("#todolist_first");
                     activate_editable();
                 });
@@ -46,35 +51,27 @@ $(document).ready(function()
     activate_editable();
 });
 
-
-/** click() function for then an item gets completed **/
-function todo_done(id) 
+/** click() function for then an item gets completed/deleted **/
+function todo_complete(action, id) 
 {
-    //var id = $(this).parent().attr('id');
-    $.get("/todo_complete/" + id, function(data) {
-        $("#todo_order_" + data).remove();
-        load_calendar( document.today  );
-    });
-}
-function todo_delete(id) 
-{
-    //var id = $(this).parent().attr('id');
-    $.get("/todo_delete/" + id, function(data) {
-        $("#todo_order_" + data).remove();
+    $.get("todo/"+ action + "/" + id, function(data) 
+    {
+        //$("#todo_order_" + data).remove();
+        $("#todo_order_" + data).hide("blind");
         load_calendar( document.today  );
     });
 }
 
 function activate_editable()
 {
-    $('.todo_edit').editable('/todo_save', 
+    $('.todo_edit').editable('todo/save', 
     {
-        loadurl     : '/todo_load',
+        loadurl     : 'todo/load',
         loadtype    : 'POST',
         type        : "autogrow",
         submit      : "Save",
         indicator   : '<img src="img/indicator.gif">',
-        tooltip     : 'Click to edit...',
+        tooltip     : 'Click to edit.',
         onblur      : 'cancel',
         width       : 'auto',
         style       : "display: inline",
@@ -88,9 +85,10 @@ function activate_editable()
 function load_calendar( day ) 
 {
     $.ajax({
-        url: '/calendar_hours/' + day,
+        url: 'calendar/hours/' + day,
         dataType: 'json',
-        success: function(data) {
+        success: function(data) 
+        {
             document.today=data['today'];
             document.tomorrow=data['tomorrow'];
             document.yesterday=data['yesterday'];
@@ -110,14 +108,10 @@ function load_calendar( day )
                     var task = data['items'][hour][i];
                     $(".calendar_hour#" + task.hour).append(task.content);
                     $("tr#hour_" + task.hour).css('display', 'inherit');
-                    //$(".completed_todo").slideDown("fast");
                 }
             }
             activate_editable();
         }
     });
 }
-
-
-
 
