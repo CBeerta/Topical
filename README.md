@@ -1,12 +1,12 @@
 # Topcial
 
-Topical is a Simple PHP Application to Plan your day-to-day activity. It is not a long term Todo List Management App.
+Topical is a Simple PHP Application to Plan your day-to-day activity. It is not a long term Todo List Management Application, never will be.
 
 # Quick Install
 
-    % git clone git://github.com/CBeerta/Topical.git
+    % git clone https://github.com/CBeerta/Topical.git
     % cd Topical
-    % git submodule sync
+    % git submodule init
     % git submodule update
     
 # Requirements
@@ -15,7 +15,6 @@ Topical is a Simple PHP Application to Plan your day-to-day activity. It is not 
 * PHP PDO SQLite
 * PHP Posix Extensions
 * PHP Socket Functions (For the Embedded Server)
-
     
 # Running the Embedded Server
 
