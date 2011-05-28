@@ -11,7 +11,7 @@ $(document).ready(function()
 	    opacity: 1.0,
 	    axis: 'y',
         update : function () {
-            $.post("todo/sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
+            $.post("?/todo/sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
         }
     });
     
@@ -22,12 +22,12 @@ $(document).ready(function()
         var task = $('#todo_task').attr('value');  
         $.ajax({  
             type: "POST",
-            url: "todo/save",
+            url: "?/todo/save",
             data: { 'value': task },
             success: function(id)
             {
                 $('#todo_task').attr('value', '');
-                $.post('todo/load/formatted', { 'id' : id } , function ( data ) 
+                $.post('?/todo/load/formatted', { 'id' : id } , function ( data ) 
                 {
                     $(data).insertAfter("#todolist_first");
                     activate_editable();
@@ -54,7 +54,7 @@ $(document).ready(function()
 /** click() function for then an item gets completed/deleted **/
 function todo_complete(action, id) 
 {
-    $.get("todo/"+ action + "/" + id, function(data) 
+    $.get("?/todo/"+ action + "/" + id, function(data) 
     {
         //$("#todo_order_" + data).remove();
         $("#todo_order_" + data).hide("blind");
@@ -64,9 +64,9 @@ function todo_complete(action, id)
 
 function activate_editable()
 {
-    $('.todo_edit').editable('todo/save', 
+    $('.todo_edit').editable('?/todo/save', 
     {
-        loadurl     : 'todo/load',
+        loadurl     : '?/todo/load',
         loadtype    : 'POST',
         type        : "autogrow",
         submit      : "Save",
@@ -85,7 +85,7 @@ function activate_editable()
 function load_calendar( day ) 
 {
     $.ajax({
-        url: 'calendar/hours/' + day,
+        url: '?/calendar/hours/' + day,
         dataType: 'json',
         success: function(data) 
         {
