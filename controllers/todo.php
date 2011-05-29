@@ -123,12 +123,13 @@ Class Task
     /**
     * Calculate the "age" of a task in days
     **/
-    public static function age( $task )
+    public static function age( $task, $today = False )
     {
+        if ( ! $today ) $today = new DateTime();
         $created = new DateTime($task->added);
-        $interval = $created->diff(new DateTime());
-        if ($interval->days == 0) return 'Today';
-        else if ($interval->days == 1) return "Yesterday";
+        $interval = $created->diff($today);
+        if ($interval->days == 1 || ($today->format('z') - $created->format('z')) == 1 ) return "Yesterday";
+        else if ($interval->days == 0) return 'Today';
         else return $interval->days . " Days Ago";
     }
 

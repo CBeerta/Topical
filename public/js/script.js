@@ -5,7 +5,27 @@
 
 $(document).ready(function() 
 {
-	$( ".todo#sortable" ).sortable(
+    $(document.documentElement).keyup(function(event) 
+    {
+        switch (event.which)
+        {
+            case 65: // a
+            case 78: // n
+                $("input#todo_task").focus();
+                break;
+            case 37: //left
+                load_calendar(document.yesterday);
+                break;
+            case 39: //right
+                load_calendar(document.tomorrow);
+                break;
+            case 36: //pos1
+                load_calendar('today');
+                break;
+        }
+    });
+
+	$(".todo#sortable").sortable(
 	{ 
 	    handle: 'img#todo_move', 
 	    opacity: 1.0,
@@ -15,10 +35,11 @@ $(document).ready(function()
         }
     });
     
-	$( "#sortable" ).disableSelection();
+	$("#sortable").disableSelection();
 	
-    $('#todo_save').submit(function() 
+    $("#todo_save").submit(function() 
     {
+        $("input#todo_task").blur();
         var task = $('#todo_task').attr('value');  
         $.ajax({  
             type: "POST",
@@ -26,7 +47,7 @@ $(document).ready(function()
             data: { 'value': task },
             success: function(id)
             {
-                $('#todo_task').attr('value', '');
+                $("#todo_task").attr('value', '');
                 $.post('?/todo/load/formatted', { 'id' : id } , function ( data ) 
                 {
                     $(data).insertAfter("#todolist_first");
@@ -107,7 +128,7 @@ function load_calendar( day )
                 {
                     var task = data['items'][hour][i];
                     $(".calendar_hour#" + task.hour).append(task.content);
-                    $("tr#hour_" + task.hour).css('display', 'inherit');
+                    $("tr#hour_" + task.hour).css('display', '');
                 }
             }
             activate_editable();

@@ -1,6 +1,5 @@
 <?php
 
-
 /**
 * Debugging shortcut function
 *
@@ -11,7 +10,14 @@ function d($message)
     {
         $message = print_r($message, true);
     }
-    WebServer::log($message);
+    if ( class_exists("WebServer", false) )
+    {
+        WebServer::log($message);
+    }
+    else
+    {
+        error_log($message);
+    }
 }
 
 

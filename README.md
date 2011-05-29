@@ -11,7 +11,7 @@ Topical is a Simple PHP Application to Plan your day-to-day activity. It is not 
     
 # Requirements
 
-* PHP >= 5.2
+* PHP >= 5.3
 * PHP PDO SQLite
 * PHP Posix Extensions
 * PHP Socket Functions (For the Embedded Server)
@@ -33,4 +33,11 @@ Simply put the Application Directory in a Directory on your webserver, and point
 There are a few Options you can tweak in the `config.ini`. 
 
 A good idea is to move the `planner.db` Database File outside the document root.
+
+# Keyboard Navigation
+
+* a, n: Add Task
+* left, right: Navigate through Time
+* Pos1: Go back to Today
+
 

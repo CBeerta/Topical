@@ -73,7 +73,8 @@ class Calendar
         $indexed_completed = array();
         foreach ($completed as $item)
         {
-            $item->age = Task::age($item);
+            //$item->age = Task::age($item, new DateTime($item->completed));
+            $item->age = new DateTime($item->completed);
             $item->added = new DateTime($item->added);
             $indexed_completed[$item->hour][] = array(
                 'id' => $item->id,
