@@ -7,21 +7,28 @@ $(document).ready(function()
 {
     $(document.documentElement).keyup(function(event) 
     {
-        switch (event.which)
+        //console.log(event.which);
+        if ($(event.target).is(':not(input, textarea)'))
         {
-            case 65: // a
-            case 78: // n
-                $("input#todo_task").focus();
-                break;
-            case 37: //left
-                load_calendar(document.yesterday);
-                break;
-            case 39: //right
-                load_calendar(document.tomorrow);
-                break;
-            case 36: //pos1
-                load_calendar('today');
-                break;
+            switch (event.which)
+            {
+                case 65: // a
+                case 78: // n
+                    $("input#todo_task").focus();
+                    break;
+                case 72: // h
+                    toggle_help();
+                    break;
+                case 37: //left
+                    load_calendar(document.yesterday);
+                    break;
+                case 39: //right
+                    load_calendar(document.tomorrow);
+                    break;
+                case 36: //pos1
+                    load_calendar('today');
+                    break;
+            }
         }
     });
 
@@ -34,6 +41,8 @@ $(document).ready(function()
             $.post("?/todo/sort", { todo_order: $('.todo#sortable').sortable("serialize") });      
         }
     });
+    
+    $('.help').click(toggle_help);
     
 	$("#sortable").disableSelection();
 	
@@ -71,6 +80,25 @@ $(document).ready(function()
 
     activate_editable();
 });
+
+function toggle_help()
+{
+    if ( ! document.help_loaded )
+    {   
+        // Load help on demand, no use dragging that huge help text along if it isnt used
+        console.log("need to load");
+        $.get("?/help/", function(ret)
+        {
+            $(".help #helptext").append(ret);
+            $('.help #helptext').slideToggle('fast')
+            document.help_loaded = true;
+        });
+    }
+    else
+    {
+        $('.help #helptext').slideToggle('fast')
+    }
+}
 
 /** click() function for then an item gets completed/deleted **/
 function todo_complete(action, id) 

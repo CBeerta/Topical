@@ -65,6 +65,9 @@ dispatch_get('/todo/delete/:id', 'Task::complete', array('params' => array('acti
 ### Calendar Stuff
 dispatch_get('/calendar/hours/:day', 'Calendar::hours');
 
+### Help Slideout
+dispatch_get('/help', 'Main::help');
+
 ### Index Page
 dispatch_get('/:day', 'Main::index');
 

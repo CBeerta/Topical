@@ -308,6 +308,41 @@ div.todo {
     font-weight: normal;
 }
 
+/* ################################# Help Tab ##################################### */
+
+.help {
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    z-index: 999;
+}
+.help #helptext {
+	background: url(../img/helptext.png) repeat;
+    padding: 10px;
+    display: none;
+    color: #dfdfdf;
+}
+.help a {
+    color: #fff;
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+}
+.help table {
+    width: 100%;
+}
+.help #handle {
+	background: url(../img/helptext.png) repeat;
+    font-weight: bold;
+    color: white;
+    border-radius: 0px 0px 10px 10px;
+    position: absolute;
+    right: 10px;
+    margin: 0 0 0 0;
+    /*padding: 8px;*/
+    padding: 2px 8px 2px 8px;
+}
 
 
 /**

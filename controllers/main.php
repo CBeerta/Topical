@@ -16,4 +16,13 @@ class Main
         return html('main.html.php');
     }
 
+    /**
+    * Builds the main index page from the initial load.
+    **/
+    public static function help()
+    {
+        return partial("snippets/help.html.php");
+    }
+
+
 }

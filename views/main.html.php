@@ -1,3 +1,8 @@
+<div class="help">
+    <div id="helptext"></div>
+    <div id="handle">?</div>
+</div>
+
 <table>
     <tr>
         <td class="calendar">
@@ -8,3 +13,5 @@
         </td>
     </tr>
 </table>
+
+
