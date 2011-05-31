@@ -104,7 +104,7 @@ Class Task
     **/
     public static function complete( $action )
     {
-        $id = params('id') ? params('id') : false;
+        $id = isset($_POST['id']) ? $_POST['id'] : false;
         if ( ! is_numeric($id) ) return json("FAIL");
         $todo = ORM::for_table('todo')->find_one($id);
         switch ($action)

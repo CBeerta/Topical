@@ -103,11 +103,14 @@ function toggle_help()
 /** click() function for then an item gets completed/deleted **/
 function todo_complete(action, id) 
 {
-    $.get("?/todo/"+ action + "/" + id, function(data) 
-    {
-        //$("#todo_order_" + data).remove();
-        $("#todo_order_" + data).hide("blind");
-        load_calendar( document.today  );
+    $.ajax({  
+        type: "POST",
+        url: "?/todo/" + action,
+        data: { 'id': id },
+        success: function(data) {
+            $("#todo_order_" + data).hide("blind");
+            load_calendar( document.today  );
+        }
     });
 }
 

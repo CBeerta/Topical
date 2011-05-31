@@ -30,7 +30,7 @@ function configure()
         $v = isset($config[$k]) ? $config[$k] : $options[$k];
         option ($k, $v);
     }
-    
+
     ORM::configure('sqlite:' . option('dbfile'));
     
     /**
@@ -59,8 +59,8 @@ layout('base.html.php');
 dispatch_post('/todo/save', 'Task::save'); ## Save a Todo. This needs to DIAF
 dispatch_post('/todo/sort', 'Task::sort'); ## jQuery Sortable Target for resorting
 dispatch_post('/todo/load/:formatted', 'Task::load'); ## Load todo and return partial snippet
-dispatch_get('/todo/complete/:id', 'Task::complete', array('params' => array('action' => 'complete'))); ## Complete a Todo
-dispatch_get('/todo/delete/:id', 'Task::complete', array('params' => array('action' => 'delete'))); ## Delete a Todo
+dispatch_post('/todo/complete', 'Task::complete', array('params' => array('action' => 'complete'))); ## Complete a Todo
+dispatch_post('/todo/delete', 'Task::complete', array('params' => array('action' => 'delete'))); ## Delete a Todo
 
 ### Calendar Stuff
 dispatch_get('/calendar/hours/:day', 'Calendar::hours');
