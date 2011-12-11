@@ -1,6 +1,6 @@
 [submodule "lib/limonade"]
 	path = lib/limonade
-	url = https://github.com/CBeerta/limonade.git
+	url = git://github.com/sofadesign/limonade.git
 [submodule "lib/idiorm"]
 	path = lib/idiorm
 	url = https://github.com/j4mie/idiorm.git
