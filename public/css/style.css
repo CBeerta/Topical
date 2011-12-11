@@ -322,6 +322,7 @@ div.todo {
     padding: 10px;
     display: none;
     color: #dfdfdf;
+    line-height: 1.1em;
 }
 .help a {
     color: #fff;
