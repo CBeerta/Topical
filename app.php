@@ -123,8 +123,8 @@ dispatch_get('/help', 'Main::help');
 //# Index Page
 dispatch_get('/:day', 'Main::index');
 
-if ( file_exists(__DIR__.'/lib/limonade/lib/lemon_server.php') ) {
-    include_once __DIR__.'/lib/limonade/lib/lemon_server.php';
+if ( file_exists(__DIR__.'/lib/lemons/lemon_server.php') ) {
+    include_once __DIR__.'/lib/lemons/lemon_server.php';
 }
 
 run();

@@ -4,3 +4,6 @@
 [submodule "lib/idiorm"]
 	path = lib/idiorm
 	url = https://github.com/j4mie/idiorm.git
+[submodule "lib/lemons"]
+	path = lib/lemons
+	url = git@github.com:CBeerta/lemons.git
